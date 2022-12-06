@@ -3,8 +3,8 @@ from typing import List
 
 
 def is_square_number(number: int) -> bool:
-    s = int(math.sqrt(number))
-    return s * s == number
+    sq = int(math.sqrt(number))
+    return sq * sq == number
 
 
 def is_triangle_number(number: int) -> bool:
@@ -24,15 +24,11 @@ def fizz_buzz(number) -> str:
     divisible_by_5 = number % 5 == 0
     if divisible_by_3 and divisible_by_5:
         return "FizzBuzz"
-    elif divisible_by_3:
+    if divisible_by_3:
         return "Fizz"
-    elif divisible_by_5:
+    if divisible_by_5:
         return "Buzz"
     return str(number)
-
-
-def average(numbers: List[int]) -> float:
-    return sum(numbers) / len(numbers) if numbers else 0
 
 
 def is_arithmetic_sequence(numbers: List[int]) -> bool:

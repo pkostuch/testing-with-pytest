@@ -59,6 +59,6 @@ def test_is_square_number_parameterized_dataclass(param):
 
 
 @pytest.mark.parametrize("expect, number",
-                         (('1', 1), ('Fizz', 3), ('Buzz', 5), ('FizzBuzz', 15), ('-4', -4)))
+                         (('1', 1), ('Fizz', 3)))
 def test_fizz_buzz(expect, number):
     assert expect == fizz_buzz(number)
