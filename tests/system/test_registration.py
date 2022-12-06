@@ -1,5 +1,6 @@
+from unittest.mock import Mock
+
 import pytest
-from unittest.mock import Mock, MagicMock
 
 from system.registration import Registration, Backend, User, MailService
 
@@ -17,9 +18,14 @@ def test_registration():
     backend = Mock()
     backend.find_user.return_value = User('001', 'Bob', 'bob@yahoo.com')
     backend.create_user.return_value = None
-    registration = Registration(backend)
+
+    mail_service = Mock()
+
+    registration = Registration(backend, mail_service)
+    assert not registration.create_new_user('Bob', 'bob@yahoo.com')
     backend.find_user.assert_called()
     backend.find_user.assert_called_with('Bob')
+    mail_service.send_greetings.assert_not_called()
 
 
 def test_registration_with_fixture(setup):
@@ -28,24 +34,3 @@ def test_registration_with_fixture(setup):
     backend.find_user.assert_called_with('Bob')
     backend.create_user.assert_called
     mail_service.send_greetings.assert_called_with('bob@gmail.com', 'Bob')
-
-
-
-class Operator:
-
-    def create(self):
-        pass
-
-    def delete(self):
-        pass
-
-
-def test_mock():
-    crud_mock = Mock()
-    crud_mock.create()
-    crud_mock.delete()
-
-
-def test_mock_():
-    crud_mock = Mock(spec=['create', 'delete'])
-    crud_mock.get()

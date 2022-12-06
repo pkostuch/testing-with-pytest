@@ -45,7 +45,7 @@ class Backend:
                 return User('abcd-0012', name, '')
             else:
                 return None
-        except requests.exceptions.ConnectionError as e:
+        except requests.exceptions.ConnectionError:
             raise NoConnectionError(f'No connection to {self.__make_uri()}')
 
     def create_user(self, name, email) -> Optional[User]:
@@ -53,7 +53,7 @@ class Backend:
             response = requests.post(f'{self.__make_uri()}/users/{name}', data={'email': email})
             if response.status_code == 200:
                 return User(response.headers.get('location', ''), name, email)
-        except requests.exceptions.ConnectionError as e:
+        except requests.exceptions.ConnectionError:
             raise NoConnectionError(f'No connection to {self.__make_uri()}')
 
 
@@ -79,10 +79,10 @@ class Registration:
             logger.info(f'sending greetings to {name}')
             self.__mail_service.send_greetings(email, name)
             return True
-        except NoConnectionError as e:
-            raise e
+        except NoConnectionError as error:
+            raise error
 
 
 if __name__ == '__main__':
-    registration = Registration(Backend('localhost', 9999))
+    registration = Registration(Backend('localhost', 9999), MailService('localhost'))
     registration.create_new_user('Bob', 'bob@gmail.com')
