@@ -5,4 +5,4 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "testing-tutorial"
 version = "0.0.1"
-dependencies = ["pytest", "pytest-cov"]
+dependencies = ["requests", "pytest", "pytest-cov"]

@@ -5,8 +5,8 @@ from numeric.numbers import add
 
 
 # "basic" test
-# def test_add():
-#     assert add(1, 4) == 5
+def test_add_basic():
+    assert add(1, 4) == 5
 
 
 # parameterized test
@@ -22,4 +22,4 @@ def test_add_skipped():
 
 @pytest.mark.xfail
 def test_add_xfail():
-    assert add(2, 0) == 2
+    assert add(2, 0) == 1
