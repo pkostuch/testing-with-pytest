@@ -13,6 +13,10 @@ def is_prime_number_lookup(number: int) -> bool:
         4: False,
         5: True,
         6: False,
-        7: True
+        7: True,
+        8: False,
+        9: False,
+        10: False,
+        11: True
     }
-    return primes.get(number, False)
+    return primes.get(number, is_prime_number_sieve(number))
