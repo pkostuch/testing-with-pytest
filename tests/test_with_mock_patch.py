@@ -1,3 +1,4 @@
+import os
 from unittest.mock import patch, MagicMock
 
 import numeric
@@ -23,3 +24,9 @@ def test_add_with_patch():
     """
     with patch('numeric.numbers.add', lambda a, b: a * b):
         assert 20 == numeric.numbers.add(4, 5)
+
+
+def test_patch_simple_example():
+    with patch('os.mkdir', MagicMock()) as mock:
+        os.mkdir('/tmp')
+        mock.assert_called_once_with('/tmp')
