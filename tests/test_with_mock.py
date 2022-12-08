@@ -1,3 +1,6 @@
+"""
+Tests with mocks
+"""
 import abc
 from unittest.mock import Mock, ANY, MagicMock
 
@@ -5,10 +8,13 @@ import pytest
 
 
 def test_how_mock_works():
+    """
+    Mock captures calls and replaces them with mocks
+    """
     mock = Mock()
-    assert 'create_user' not in mock.__dir__()
+    assert 'create_user' not in dir(mock)
     mock.create_user('Bob')
-    assert 'create_user' in mock.__dir__()
+    assert 'create_user' in dir(mock)
     assert isinstance(mock.create_user, Mock)
     mock.create_user.assert_called_once_with('Bob')
 
@@ -98,13 +104,13 @@ class RadioController(abc.ABC):
 
     @abc.abstractmethod
     def turn_on(self) -> None:
-        ...
+        """ Turn on the radio """
 
     def turn_off(self) -> None:
-        ...
+        """ Turn off the radio """
 
     def set_station(self, number: int) -> None:
-        ...
+        """ Set programmed station """
 
 
 def test_with_strict_mock_after_class():

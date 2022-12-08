@@ -1,3 +1,6 @@
+"""
+Parametrized tests
+"""
 from dataclasses import dataclass
 
 import pytest
@@ -8,7 +11,7 @@ from numeric.numbers import is_square_number, fizz_buzz
 # Simple test
 
 def test_is_square_number():
-    assert is_square_number(5) == False
+    assert is_square_number(5) is False
 
 
 test_data = (
@@ -36,8 +39,7 @@ def test_is_square_number_parameterized_custom_ids(expect, number):
 def param_to_string(arg):
     if isinstance(arg, bool):
         return f'Expected: {arg}'
-    elif isinstance(arg, int):
-        return f'Number: {arg}'
+    return f'Number: {arg}'
 
 
 @pytest.mark.parametrize("expect, number", test_data, ids=param_to_string)
@@ -49,6 +51,7 @@ def test_is_square_number_parameterized_ids_function(expect, number):
 
 @dataclass(frozen=True)
 class Param:
+    """ Test parameter """
     expect: bool
     number: int
 

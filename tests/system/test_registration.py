@@ -32,5 +32,5 @@ def test_registration_with_fixture(setup):
     registration, backend, mail_service = setup
     assert registration.create_new_user('Bob', 'bob@gmail.com')
     backend.find_user.assert_called_with('Bob')
-    backend.create_user.assert_called
+    backend.create_user.assert_called_once()
     mail_service.send_greetings.assert_called_with('bob@gmail.com', 'Bob')
