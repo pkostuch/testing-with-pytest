@@ -30,3 +30,19 @@ def test_patch_simple_example():
     with patch('os.mkdir', MagicMock()) as mock:
         os.mkdir('/tmp')
         mock.assert_called_once_with('/tmp')
+
+
+@patch('os.listdir')
+def test_patch_decorator(mock):  # argument 'mock' is created by @patch
+    mock.return_value = ['home', 'tmp']
+    os.listdir()
+    mock.assert_called_once()
+
+
+@patch('os.listdir')
+@patch('os.mkdir')
+def test_patch_decorators(mock_mkdir, mock_listdir):  # more than @patch can be specified
+    os.mkdir('/tmp')
+    os.listdir()
+    mock_listdir.assert_called_once()
+    mock_mkdir.assert_called_once_with('/tmp')

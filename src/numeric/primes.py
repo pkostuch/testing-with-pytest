@@ -1,22 +1,19 @@
 from math import sqrt
 
 
-def is_prime_number_sieve(number: int) -> bool:
+def is_prime_number_compute(number: int) -> bool:
+    """ Check if number is not divisible by [2...sqrt(number)] """
     limit = int(sqrt(number)) + 1
     return all(number % div != 0 for div in range(2, limit))
 
 
 def is_prime_number_lookup(number: int) -> bool:
-    primes = {
-        2: True,
-        3: True,
-        4: False,
-        5: True,
-        6: False,
-        7: True,
-        8: False,
-        9: False,
-        10: False,
-        11: True
-    }
-    return primes.get(number, is_prime_number_sieve(number))
+    """ Find in lookup table or compute if not found """
+    # favorite, most used prime numbers
+    primes = set([
+        23,
+        31,
+        47,
+        41,
+    ])
+    return True if number in primes else is_prime_number_compute(number)
