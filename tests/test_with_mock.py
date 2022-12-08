@@ -4,6 +4,15 @@ from unittest.mock import Mock, ANY, MagicMock
 import pytest
 
 
+def test_how_mock_works():
+    mock = Mock()
+    assert 'create_user' not in mock.__dir__()
+    mock.create_user('Bob')
+    assert 'create_user' in mock.__dir__()
+    assert isinstance(mock.create_user, Mock)
+    mock.create_user.assert_called_once_with('Bob')
+
+
 # --- asserts
 
 
@@ -59,6 +68,7 @@ def test_with_mock():
     Regular Mock does not allow to replace magic methods
     """
     mock = Mock()
+    assert not isinstance(mock.__str__, MagicMock)
     mock.__str__.return_value = "no magic"
     print(mock)
 
@@ -68,6 +78,7 @@ def test_with_magic_mock():
     MagicMock replaces magic methods (__xyz__)
     """
     mock = MagicMock()
+    assert isinstance(mock.__str__, MagicMock)
     mock.__str__.return_value = "magic!"
     print(mock)
 
